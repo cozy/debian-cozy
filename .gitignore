@@ -1,0 +1,7 @@
+*.debhelper
+*.log
+*.substvars
+*-build-stamp
+/cozy-stack/
+/cozy/
+/files

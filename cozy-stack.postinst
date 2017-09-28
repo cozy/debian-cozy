@@ -1,0 +1,40 @@
+#!/bin/sh
+set -e
+. /usr/share/debconf/confmodule
+
+case $1 in
+configure)
+	getent group cozy 2>&1 >/dev/null || \
+		addgroup --quiet --system cozy
+	getent passwd cozy-stack 2>&1 >/dev/null || \
+		adduser --quiet --system \
+		--home /var/lib/cozy --no-create-home \
+		--shell /usr/sbin/nologin --ingroup cozy cozy-stack
+
+	[ -d /var/log/cozy ] || \
+		install -o root -g cozy -m u=rwX,g=rwX,o= -d /var/log/cozy
+
+	db_get cozy-stack/couchdb/address && COUCH_ADDRESS="${RET}"
+	db_get cozy-stack/couchdb/nodename && COUCH_NODE="${RET}"
+	db_get cozy-stack/couchdb/admin/user && COUCH_ADMIN="${RET}"
+	db_get cozy-stack/couchdb/admin/password && COUCH_ADMIN_PASS="${RET}"
+	db_get cozy-stack/couchdb/cozy/user && COUCH_USER="${RET}"
+	db_get cozy-stack/couchdb/cozy/password && COUCH_PASS="${RET}"
+
+	curl -X PUT "http://${COUCH_ADMIN}:${COUCH_ADMIN_PASS}@${COUCH_ADDRESS}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\""
+
+	COUCH="http://${COUCH_USER}:${COUCH_PASS}@${COUCH_ADDRESS}/"
+	sed -i "s#@@COUCHDB@@#${COUCH}#" /etc/cozy/cozy.yml
+
+	[ -f /etc/cozy/cozy-admin-passphrase ] ||\
+		echo "admin\nadmin" | cozy-stack config passwd /etc/cozy/cozy-admin-passphrase
+
+	chown cozy-stack:cozy /etc/cozy/cozy.yml
+	chown cozy-stack:cozy /etc/cozy/cozy-admin-passphrase
+	chown -R cozy-stack:cozy /usr/share/cozy
+
+	install -o cozy-stack -g cozy -m u=rwX,g=rwX,o= -d /var/lib/cozy
+;;
+esac
+
+#DEBHELPER#

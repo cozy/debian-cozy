@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec
+bin/cozy-stack usr/bin/
+debian/cozy.yml etc/cozy
+debian/konnector-nsjail-run.sh usr/share/cozy/konnector-nsjail-run.sh

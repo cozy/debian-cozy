@@ -1,0 +1,8 @@
+couchdb:
+  url: @@COUCHDB@@
+
+fs:
+  url: file:///var/lib/cozy
+
+konnectors:
+  cmd: /usr/share/cozy/konnector-nsjail-run.sh

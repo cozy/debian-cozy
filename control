@@ -1,0 +1,36 @@
+Source: cozy-stack
+Section: devel
+Priority: extra
+Maintainer: aeris <aeris@cozycloud.cc>
+Build-Depends: debhelper (>= 9), dh-systemd, dh-exec,
+               golang-go (>= 1.8)
+Standards-Version: 3.9.8
+Homepage: https://github.com/cozy/cozy-stack
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-go/packages/cozy-stack.git
+Vcs-Git: https://anonscm.debian.org/git/pkg-go/packages/cozy-stack.git
+XS-Go-Import-Path: github.com/cozy/cozy-stack
+
+Package: cozy-stack
+Architecture: amd64
+Depends: ${misc:Depends}, ${shlibs:Depends},
+		adduser, members, curl,
+		cozy-couchdb (>=2.0),
+		git, imagemagick, libprotobuf-c1
+Recommends: cozy-nsjail, nginx-light
+Description: Cozy: Simple, Versatile, Yours
+ Cozy (https://cozy.io) is a platform that brings all your web services
+ in the same private space.
+ .
+ This package installs the cozy stack.
+
+Package: cozy
+Architecture: all
+Pre-Depends: cozy-couchdb (>=2.0) | couchdb (>=2.0)
+Depends: cozy-stack, cozy-coclyco,
+		cozy-nsjail | nsjail,
+		nginx-light
+Description: Cozy: Simple, Versatile, Yours
+ Cozy (https://cozy.io) is a platform that brings all your web services
+ in the same private space.
+ .
+ This package installs all packages needed for a standalone cozy server.
