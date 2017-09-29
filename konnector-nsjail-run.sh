@@ -21,7 +21,7 @@ fi
 if [ -n "${COZY_KONNECTOR_CHROOT}" ]; then
   chrootdir="${COZY_KONNECTOR_CHROOT}"
 else
-  chrootdir="/var/chroot/konnectors"
+  chrootdir="/usr/share/cozy/chroot"
 fi
 
 if [ ! -d "${chrootdir}" ]; then
