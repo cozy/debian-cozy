@@ -34,6 +34,8 @@ configure)
 	chown -R cozy-stack:cozy /usr/share/cozy
 
 	install -o cozy-stack -g cozy -m u=rwX,g=rwX,o= -d /var/lib/cozy
+
+	[ -f /usr/sbin/rsyslogd ] && systemctl reload rsyslog
 ;;
 esac
 
