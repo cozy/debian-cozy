@@ -143,7 +143,9 @@ nsjail \
   --seccomp_string "${seccomp_string}" \
   -E "COZY_URL=${COZY_URL}" \
   -E "COZY_FIELDS=${COZY_FIELDS}" \
+  -E "COZY_PARAMETERS=${COZY_PARAMETERS}" \
   -E "COZY_CREDENTIALS=${COZY_CREDENTIALS}" \
+  -E "COZY_LOCALE=${COZY_LOCALE}" \
   -R "${rundir}:/usr/src/konnector/" \
   -R "${chrootdir}/lib:/lib" \
   -R "${chrootdir}/lib64:/lib64" \
