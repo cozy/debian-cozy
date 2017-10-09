@@ -11,7 +11,7 @@ Vcs-Git: https://anonscm.debian.org/git/pkg-go/packages/cozy-stack.git
 XS-Go-Import-Path: github.com/cozy/cozy-stack
 
 Package: cozy-stack
-Architecture: amd64
+Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends},
 			adduser, members, curl,
 			cozy-couchdb (>=2.0),
