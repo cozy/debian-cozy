@@ -8,5 +8,5 @@ konnectors:
   cmd: /usr/share/cozy/konnector-nsjail-run.sh
 
 log:
-  level: debug
+  level: info
   syslog: true
