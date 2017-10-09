@@ -88,3 +88,27 @@ Template: cozy-stack/cozy/password_mismatch
 Type: error
 Description: Password input error:
  The two passwords you entered were not the same. Please try again.
+
+Template: cozy-stack/address
+Type: string
+Default: 127.0.0.1
+Description: Cozy stack bind address:
+ Your cozy stack will listen on this address
+
+Template: cozy-stack/port
+Type: string
+Default: 8080
+Description: Cozy stack bind port:
+ Your cozy stack will listen on this port
+
+Template: cozy-stack/admin/address
+Type: string
+Default: 127.0.0.1
+Description: Cozy stack admin bind address:
+ Your cozy stack admin API will listen on this address
+
+Template: cozy-stack/port
+Type: string
+Default: 6060
+Description: Cozy stack bind port:
+ Your cozy stack admin API will listen on this port

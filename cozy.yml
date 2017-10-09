@@ -1,3 +1,10 @@
+host: @@ADDRESS@@
+port: @@PORT@@
+
+admin:
+  host: @@ADMIN_ADDRESS@@
+  port: @@ADMIN_PORT@@
+
 couchdb:
   url: @@COUCHDB@@
 
