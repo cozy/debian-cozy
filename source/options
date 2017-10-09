@@ -1,1 +1,0 @@
-extend-diff-ignore = "(^(pkg|bin)/|^src/github.com/cozy/cozy-stack/cozy-stack-.*)"
