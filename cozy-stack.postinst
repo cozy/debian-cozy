@@ -21,7 +21,7 @@ configure)
 		db_get cozy-stack/couchdb/admin/password && COUCH_ADMIN_PASS="${RET}"
 		db_get cozy-stack/couchdb/cozy/user && COUCH_USER="${RET}"
 		db_get cozy-stack/couchdb/cozy/password && COUCH_PASS="${RET}"
-		db_get cozy-stack/password && COUCH_PASS="${RET}"
+		db_get cozy-stack/cozy/password && COUCH_PASS="${RET}"
 		db_get cozy-stack/address && ADDRESS="${RET}"
 		db_get cozy-stack/port && PORT="${RET}"
 		db_get cozy-stack/admin/address && ADMIN_ADDRESS="${RET}"

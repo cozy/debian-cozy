@@ -107,8 +107,8 @@ Default: 127.0.0.1
 Description: Cozy stack admin bind address:
  Your cozy stack admin API will listen on this address
 
-Template: cozy-stack/port
+Template: cozy-stack/admin/port
 Type: string
 Default: 6060
-Description: Cozy stack bind port:
+Description: Cozy stack admin bind port:
  Your cozy stack admin API will listen on this port
