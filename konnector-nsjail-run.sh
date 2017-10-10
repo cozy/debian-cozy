@@ -126,6 +126,14 @@ POLICY konnectors {
 USE konnectors DEFAULT ALLOW
 EOM
 
+CUSTOM_CA=/etc/ssl/certs/custom.crt
+
+if [ -f "${chrootdir}${CUSTOM_CA}" ]; then
+	CUSTOM_CA=("-E" "NODE_EXTRA_CA_CERTS=${CUSTOM_CA}")
+else
+	CUSTOM_CA=()
+fi
+
 nsjail \
   --quiet \
   --log_fd 3 \
@@ -141,6 +149,7 @@ nsjail \
   --disable_clone_newnet \
   --iface_no_lo \
   --seccomp_string "${seccomp_string}" \
+  ${CUSTOM_CA} \
   -E "COZY_URL=${COZY_URL}" \
   -E "COZY_FIELDS=${COZY_FIELDS}" \
   -E "COZY_PARAMETERS=${COZY_PARAMETERS}" \
@@ -150,8 +159,8 @@ nsjail \
   -R "${chrootdir}/lib:/lib" \
   -R "${chrootdir}/lib64:/lib64" \
   -R "${chrootdir}/usr/lib:/usr/lib" \
-  -R "${chrootdir}/usr/bin/nodejs:/usr/bin/nodejs" \
+  -R "${chrootdir}/usr/bin/node:/usr/bin/node" \
   -R "${chrootdir}/dev/urandom:/dev/urandom" \
   -R "${chrootdir}/etc/resolv.conf:/etc/resolv.conf" \
   -R "${chrootdir}/etc/ssl/certs:/etc/ssl/certs" \
-  -- /usr/bin/nodejs /usr/src/konnector
+  -- /usr/bin/node /usr/src/konnector
