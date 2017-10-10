@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-
 rundir="${1}"
 
 usage() {
@@ -129,9 +128,9 @@ EOM
 CUSTOM_CA=/etc/ssl/certs/custom.crt
 
 if [ -f "${chrootdir}${CUSTOM_CA}" ]; then
-	CUSTOM_CA=("-E" "NODE_EXTRA_CA_CERTS=${CUSTOM_CA}")
+	CUSTOM_CA="-E NODE_EXTRA_CA_CERTS=${CUSTOM_CA}"
 else
-	CUSTOM_CA=()
+	CUSTOM_CA=""
 fi
 
 nsjail \
