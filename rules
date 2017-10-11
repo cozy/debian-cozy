@@ -1,7 +1,5 @@
 #!/usr/bin/make -f
 export DH_GOPKG ?= github.com/cozy/cozy-stack
-TARGET_ARCH ?= linux-amd64
-SKIP_GO_GET ?= false
 
 DESTDIR := $(CURDIR)/debian/cozy-stack
 export GOPATH := $(CURDIR)
