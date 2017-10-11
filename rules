@@ -12,16 +12,6 @@ export BUILD_TIME := $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 %:
 	dh $@ --with=systemd
 
-generate-sources:
-	$(SKIP_GO_GET) || go get -t -u -v $(DH_GOPKG)
-	cd src/$(DH_GOPKG) &&\
-		VERSION_STRING=$(UPSTREAM_VERSION) PATH="$(GOPATH)/bin:$(PATH)" ./scripts/build.sh assets
-	tar --exclude-vcs --exclude="src/github.com/cozy/cozy-stack/cozy-stack-linux-*" \
-		-C .. -Jcvf ../cozy_$(UPSTREAM_VERSION).orig.tar.xz cozy/src
-
-#override_dh_auto_configure:
-#	$(SKIP_GO_GET) || go get -t -u -v $(DH_GOPKG)
-
 override_dh_auto_build:
 	cd src/$(DH_GOPKG) && go build -o $(CURDIR)/bin/cozy-stack -ldflags "\
 		-X github.com/cozy/cozy-stack/pkg/config.Version=$(UPSTREAM_VERSION) \
