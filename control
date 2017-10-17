@@ -13,7 +13,7 @@ XS-Go-Import-Path: github.com/cozy/cozy-stack
 Package: cozy-stack
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends},
-			adduser, members, curl,
+			adduser, members, curl, sed,
 			cozy-couchdb (>=2.0),
 			git, imagemagick, libprotobuf-c1
 Recommends: cozy-nsjail, nginx-light,
