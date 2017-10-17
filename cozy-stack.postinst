@@ -27,7 +27,7 @@ configure)
 		db_get cozy-stack/admin/address && ADMIN_ADDRESS="${RET}"
 		db_get cozy-stack/admin/port && ADMIN_PORT="${RET}"
 
-		curl -X PUT "http://${COUCH_ADMIN}:${COUCH_ADMIN_PASS}@${COUCH_ADDRESS}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\""
+		curl -sX PUT "http://${COUCH_ADMIN}:${COUCH_ADMIN_PASS}@${COUCH_ADDRESS}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\"" >/dev/null
 
 		COUCH="http://${COUCH_USER}:${COUCH_PASS}@${COUCH_ADDRESS}/"
 		sed -i "s#@@COUCHDB@@#${COUCH}#" /etc/cozy/cozy.yml
