@@ -1,5 +1,5 @@
-cozy-stack (0.1.0-1) unstable; urgency=low
+cozy-stack (2017M4S3-1) testing; urgency=medium
 
-  * Initial release
+  * Two factor authentication
 
- -- aeris <aeris@cozycloud.cc>  Mon, 09 Jan 2017 10:43:32 +0000
+ -- aeris <aeris@cozycloud.cc>  Tue, 07 Nov 2017 10:01:26 +0100
