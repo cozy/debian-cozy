@@ -16,7 +16,7 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
 			adduser, members, curl, sed,
 			cozy-couchdb (>=2.0),
 			git, imagemagick, libprotobuf-c1
-Recommends: cozy-nsjail, nginx-light,
+Recommends: cozy-nsjail, nginx,
 			debootstrap,
 			mail-transport-agent
 Description: Cozy: Simple, Versatile, Yours
@@ -30,7 +30,7 @@ Architecture: all
 Pre-Depends: cozy-couchdb (>=2.0) | couchdb (>=2.0)
 Depends: cozy-stack, cozy-coclyco,
 		cozy-nsjail | nsjail,
-		nginx-light,
+		nginx,
 		debootstrap
 Description: Cozy: Simple, Versatile, Yours
  Cozy (https://cozy.io) is a platform that brings all your web services
