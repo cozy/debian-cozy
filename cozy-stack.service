@@ -1,7 +1,7 @@
 [Unit]
 Description=Cozy service
 Wants=couchdb.service
-After=network.target,couchdb.service
+After=network.target couchdb.service
 
 [Service]
 User=cozy-stack
