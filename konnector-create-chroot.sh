@@ -2,7 +2,7 @@
 set -xe
 CHROOT_DIRECTORY="/usr/share/cozy/chroot"
 DEBIAN_INCLUDE_PACKAGES="gnupg,apt-transport-https,ca-certificates,curl"
-RELEASE="$(lsb_release -si)"
+RELEASE="$(lsb_release -sc)"
 
 mkdir -p "${CHROOT_DIRECTORY}"
 debootstrap --variant=minbase --include="${DEBIAN_INCLUDE_PACKAGES}" \
