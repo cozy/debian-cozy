@@ -3,7 +3,7 @@ Section: devel
 Priority: extra
 Maintainer: aeris <aeris@cozycloud.cc>
 Build-Depends: debhelper (>= 9), dh-systemd, dh-exec,
-				golang-go (>= 1.8)
+				golang-go (>= 1.9)
 Standards-Version: 3.9.8
 Homepage: https://github.com/cozy/cozy-stack
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-go/packages/cozy-stack.git
