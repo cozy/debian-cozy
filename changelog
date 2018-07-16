@@ -1,3 +1,9 @@
+cozy-stack (2018M2S6-2) testing; urgency=medium
+
+  * Enable registry
+
+ -- aeris <aeris@cozycloud.cc>  Wed, 11 Jul 2018 09:19:18 +0000
+
 cozy-stack (2018M2S6-1) testing; urgency=medium
 
   * Sprint release

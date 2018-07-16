@@ -17,3 +17,7 @@ konnectors:
 log:
   level: info
   syslog: true
+
+registries:
+  default:
+  - https://apps-registry.cozycloud.cc/
