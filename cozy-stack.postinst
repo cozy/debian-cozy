@@ -4,6 +4,21 @@ set -e
 
 case $1 in
 configure)
+	db_get cozy-stack/couchdb/address && COUCH_ADDRESS="${RET}"
+	db_get cozy-stack/couchdb/cozy/user && COUCH_USER="${RET}"
+	db_get cozy-stack/couchdb/cozy/password && COUCH_PASS="${RET}"
+	db_get cozy-stack/address && ADDRESS="${RET}"
+	db_get cozy-stack/port && PORT="${RET}"
+	db_get cozy-stack/admin/address && ADMIN_ADDRESS="${RET}"
+	db_get cozy-stack/admin/port && ADMIN_PORT="${RET}"
+
+	COUCH="http://${COUCH_USER}:${COUCH_PASS}@${COUCH_ADDRESS}/"
+	sed -i "s#@@COUCHDB@@#${COUCH}#" /etc/cozy/cozy.yml
+	sed -i "s#@@ADDRESS@@#${ADDRESS}#" /etc/cozy/cozy.yml
+	sed -i "s#@@PORT@@#${PORT}#" /etc/cozy/cozy.yml
+	sed -i "s#@@ADMIN_ADDRESS@@#${ADMIN_ADDRESS}#" /etc/cozy/cozy.yml
+	sed -i "s#@@ADMIN_PORT@@#${ADMIN_PORT}#" /etc/cozy/cozy.yml
+
 	if [ -z "$2" ]; then
 		getent group cozy 2>&1 >/dev/null || \
 			addgroup --quiet --system cozy
@@ -15,29 +30,15 @@ configure)
 		[ -d /var/log/cozy ] || \
 			install -o root -g cozy -m u=rwX,g=rwX,o= -d /var/log/cozy
 
-		db_get cozy-stack/couchdb/address && COUCH_ADDRESS="${RET}"
 		db_get cozy-stack/couchdb/nodename && COUCH_NODE="${RET}"
 		db_get cozy-stack/couchdb/admin/user && COUCH_ADMIN="${RET}"
 		db_get cozy-stack/couchdb/admin/password && COUCH_ADMIN_PASS="${RET}"
-		db_get cozy-stack/couchdb/cozy/user && COUCH_USER="${RET}"
-		db_get cozy-stack/couchdb/cozy/password && COUCH_PASS="${RET}"
-		db_get cozy-stack/cozy/password && COZY_PASS="${RET}"
-		db_get cozy-stack/address && ADDRESS="${RET}"
-		db_get cozy-stack/port && PORT="${RET}"
-		db_get cozy-stack/admin/address && ADMIN_ADDRESS="${RET}"
-		db_get cozy-stack/admin/port && ADMIN_PORT="${RET}"
-
 		curl -sX PUT "http://${COUCH_ADMIN}:${COUCH_ADMIN_PASS}@${COUCH_ADDRESS}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\"" >/dev/null
 
-		COUCH="http://${COUCH_USER}:${COUCH_PASS}@${COUCH_ADDRESS}/"
-		sed -i "s#@@COUCHDB@@#${COUCH}#" /etc/cozy/cozy.yml
-		sed -i "s#@@ADDRESS@@#${ADDRESS}#" /etc/cozy/cozy.yml
-		sed -i "s#@@PORT@@#${PORT}#" /etc/cozy/cozy.yml
-		sed -i "s#@@ADMIN_ADDRESS@@#${ADMIN_ADDRESS}#" /etc/cozy/cozy.yml
-		sed -i "s#@@ADMIN_PORT@@#${ADMIN_PORT}#" /etc/cozy/cozy.yml
-
-		[ -f /etc/cozy/cozy-admin-passphrase ] ||\
+		if [ -f /etc/cozy/cozy-admin-passphrase ]; then
+			db_get cozy-stack/cozy/password && COZY_PASS="${RET}"
 			COZY_ADMIN_PASSPHRASE="${COZY_PASS}" cozy-stack config passwd /etc/cozy/cozy-admin-passphrase
+		fi
 
 		chown cozy-stack:cozy /etc/cozy/cozy.yml
 		chown cozy-stack:cozy /etc/cozy/cozy-admin-passphrase
@@ -47,9 +48,9 @@ configure)
 
 		[ -f /usr/sbin/rsyslogd ] && systemctl restart rsyslog
 		[ -f /usr/sbin/nginx ] && systemctl reload nginx
-	else
-		systemctl restart cozy-stack
 	fi
+
+	systemctl restart cozy-stack
 ;;
 esac
 
