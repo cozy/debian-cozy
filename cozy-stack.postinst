@@ -48,6 +48,10 @@ configure)
 
 		[ -f /usr/sbin/rsyslogd ] && systemctl restart rsyslog
 		[ -f /usr/sbin/nginx ] && systemctl reload nginx
+	else
+		if dpkg --compare-versions "${2}" le 2018M4S1-1; then
+			/usr/share/cozy/migrate-collect-to-home.sh
+		fi
 	fi
 
 	systemctl restart cozy-stack
