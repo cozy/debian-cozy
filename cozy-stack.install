@@ -2,6 +2,7 @@
 bin/cozy-stack usr/bin/
 debian/cozy.yml etc/cozy/
 debian/cozy-stack.syslog => etc/rsyslog.d/cozy.conf
+debian/migrate-collect-to-home.sh usr/share/cozy/
 debian/konnector-nsjail-run.sh usr/share/cozy/
 debian/konnector-create-chroot.sh usr/share/cozy/
 debian/websocket.conf etc/nginx/conf.d/
