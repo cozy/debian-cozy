@@ -35,7 +35,7 @@ configure)
 		db_get cozy-stack/couchdb/admin/password && COUCH_ADMIN_PASS="${RET}"
 		curl -sX PUT "http://${COUCH_ADMIN}:${COUCH_ADMIN_PASS}@${COUCH_ADDRESS}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\"" >/dev/null
 
-		if [ -f /etc/cozy/cozy-admin-passphrase ]; then
+		if [ ! -f /etc/cozy/cozy-admin-passphrase ]; then
 			db_get cozy-stack/cozy/password && COZY_PASS="${RET}"
 			COZY_ADMIN_PASSPHRASE="${COZY_PASS}" cozy-stack config passwd /etc/cozy/cozy-admin-passphrase
 		fi
