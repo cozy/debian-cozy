@@ -1,3 +1,9 @@
+cozy-stack (2018M4S2-1) testing; urgency=medium
+
+  * Sprint release
+
+ -- aeris <aeris@cozycloud.cc>  Mon, 15 Oct 2018 14:55:18 +0200
+
 cozy-stack (2018M4S1-fix1-1) testing; urgency=medium
 
   * Fix cozy-bar
