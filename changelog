@@ -1,3 +1,9 @@
+cozy-stack (2018M4S2-2) testing; urgency=medium
+
+  * Fix go build from tagged sources
+
+ -- aeris <aeris@cozycloud.cc>  Mon, 22 Oct 2018 14:41:31 +0200
+
 cozy-stack (2018M4S2-1) testing; urgency=medium
 
   * Sprint release
