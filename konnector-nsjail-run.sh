@@ -143,7 +143,7 @@ nsjail \
   --rlimit_fsize 1024 \
   --rlimit_nofile 128 \
   --rlimit_nproc 512 \
-  --time_limit=120 \
+  --time_limit=300 \
   --disable_proc \
   --disable_clone_newnet \
   --iface_no_lo \
