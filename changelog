@@ -1,3 +1,10 @@
+cozy-stack (2018M4S3-1) testing; urgency=medium
+
+  * Migrate collect to home
+  * Sprint release
+
+ -- aeris <aeris@cozycloud.cc>  Mon, 05 Nov 2018 15:34:53 +0100
+
 cozy-stack (2018M4S2-2) testing; urgency=medium
 
   * Fix go build from tagged sources

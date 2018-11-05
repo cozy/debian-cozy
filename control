@@ -3,7 +3,7 @@ Section: devel
 Priority: extra
 Maintainer: aeris <aeris@cozycloud.cc>
 Build-Depends: debhelper (>= 9), dh-systemd, dh-exec,
-				golang-go (>= 1.9)
+				golang-go (>= 1.10)
 Standards-Version: 3.9.8
 Homepage: https://github.com/cozy/cozy-stack
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-go/packages/cozy-stack.git
@@ -28,7 +28,7 @@ Description: Cozy: Simple, Versatile, Yours
 Package: cozy
 Architecture: all
 Pre-Depends: cozy-couchdb (>=2.0) | couchdb (>=2.0)
-Depends: cozy-stack, cozy-coclyco,
+Depends: cozy-stack, cozy-coclyco (>=0.2.3),
 		cozy-nsjail | nsjail,
 		nginx,
 		debootstrap
