@@ -42,6 +42,9 @@ configure)
 			chmod 600 /etc/cozy/.cozy-admin-passphrase
 		fi
 
+		db_set cozy-stack/couchdb/admin/password ""
+		db_set cozy-stack/cozy/password ""
+
 		chown cozy-stack:cozy /etc/cozy/cozy.yml
 		chown cozy-stack:cozy /etc/cozy/cozy-admin-passphrase
 		chown -R cozy-stack:cozy /usr/share/cozy
