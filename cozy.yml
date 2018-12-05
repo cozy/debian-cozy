@@ -21,3 +21,5 @@ log:
 registries:
   default:
   - https://apps-registry.cozycloud.cc/
+  - https://apps-registry.cozycloud.cc/banks
+
