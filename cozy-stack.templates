@@ -112,3 +112,8 @@ Type: string
 Default: 6060
 Description: Cozy stack admin bind port:
  Your cozy stack admin API will listen on this port
+
+Template: cozy-stack/admin/passphrase
+Type: password
+Description: Cozy stack admin passphrase:
+ Please enter your Cozy admin passphrase

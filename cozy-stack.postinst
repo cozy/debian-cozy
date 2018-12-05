@@ -38,6 +38,8 @@ configure)
 		if [ ! -f /etc/cozy/cozy-admin-passphrase ]; then
 			db_get cozy-stack/cozy/password && COZY_PASS="${RET}"
 			COZY_ADMIN_PASSPHRASE="${COZY_PASS}" cozy-stack config passwd /etc/cozy/cozy-admin-passphrase
+			echo -n "${COZY_PASS}" > /etc/cozy/.cozy-admin-passphrase
+			chmod 600 /etc/cozy/.cozy-admin-passphrase
 		fi
 
 		chown cozy-stack:cozy /etc/cozy/cozy.yml
@@ -49,6 +51,15 @@ configure)
 		[ -f /usr/sbin/rsyslogd ] && systemctl restart rsyslog
 		[ -f /usr/sbin/nginx ] && systemctl reload nginx
 	else
+		if [ ! -f /etc/cozy/.cozy-admin-passphrase ]; then
+			db_input critical cozy-stack/admin/passphrase
+			db_go
+			db_get cozy-stack/admin/passphrase && COZY_PASS="${RET}"
+			db_set cozy-stack/admin/passphrase ""
+			echo "${COZY_PASS}" > /etc/cozy/.cozy-admin-passphrase
+			chmod 600 /etc/cozy/.cozy-admin-passphrase
+		fi
+
 		if dpkg --compare-versions "${2}" lt 2018M4S3-1; then
 			/usr/share/cozy/migrate-collect-to-home.sh
 		fi

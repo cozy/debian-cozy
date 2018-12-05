@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+export COZY_ADMIN_PASSWORD="$(cat /etc/cozy/.cozy-admin-passphrase)"
+
 echo "Migrating collect to home"
 cozy-stack instances ls | awk '{print $1}' | while read domain; do
 	echo "  Migrating ${domain}"
