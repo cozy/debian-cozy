@@ -16,7 +16,7 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
 			adduser, members, curl, sed,
 			cozy-couchdb (>=2.0),
 			git, imagemagick, libprotobuf-c1
-Recommends: cozy-nsjail, nginx,
+Recommends: cozy-coclyco, cozy-nsjail, nginx,
 			debootstrap, lsb-release,
 			mail-transport-agent
 Description: Cozy: Simple, Versatile, Yours
