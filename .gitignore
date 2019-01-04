@@ -2,6 +2,7 @@
 *.log
 *.substvars
 *-build-stamp
+/tmp/
 /cozy-stack/
 /cozy/
 /files

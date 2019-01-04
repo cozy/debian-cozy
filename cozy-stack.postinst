@@ -42,9 +42,6 @@ configure)
 			chmod 600 /etc/cozy/.cozy-admin-passphrase
 		fi
 
-		db_set cozy-stack/couchdb/admin/password ""
-		db_set cozy-stack/cozy/password ""
-
 		chown cozy-stack:cozy /etc/cozy/cozy.yml
 		chown cozy-stack:cozy /etc/cozy/cozy-admin-passphrase
 		chown -R cozy-stack:cozy /usr/share/cozy
@@ -58,7 +55,6 @@ configure)
 			db_input critical cozy-stack/admin/passphrase
 			db_go
 			db_get cozy-stack/admin/passphrase && COZY_PASS="${RET}"
-			db_set cozy-stack/admin/passphrase ""
 			echo "${COZY_PASS}" > /etc/cozy/.cozy-admin-passphrase
 			chmod 600 /etc/cozy/.cozy-admin-passphrase
 		fi
