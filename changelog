@@ -1,3 +1,10 @@
+cozy-stack (2:1.1.1-1) testing; urgency=medium
+
+  * Fix dh-get password mismatch bug (again)
+  * Sprint release
+
+ -- aeris <aeris@cozycloud.cc>  Thu, 17 Jan 2019 16:06:23 +0100
+
 cozy-stack (2:1.1.0-1) testing; urgency=medium
 
   * Split config, allow override from .local config file
