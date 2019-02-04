@@ -28,7 +28,7 @@ Description: Cozy: Simple, Versatile, Yours
 Package: cozy
 Architecture: all
 Pre-Depends: cozy-couchdb (>=2.0) | couchdb (>=2.0)
-Depends: cozy-stack, cozy-coclyco (>=0.2.3),
+Depends: cozy-stack, cozy-coclyco (>=0.4.0),
 		cozy-nsjail | nsjail,
 		nginx,
 		debootstrap

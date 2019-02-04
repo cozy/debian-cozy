@@ -62,6 +62,9 @@ configure)
 		if dpkg --compare-versions "${2}" lt 2018M4S3-1; then
 			/usr/share/cozy/migrate-collect-to-home.sh
 		fi
+		if dpkg --compare-versions "${2}" lt 2:1.2.0-1; then
+			/usr/share/cozy/uninstall-onboarding.sh
+		fi
 	fi
 
 	systemctl restart cozy-stack
