@@ -1,3 +1,9 @@
+cozy-stack (2:1.2.1-1) testing; urgency=medium
+
+  * Sprint release
+
+ -- aeris <aeris@cozycloud.cc>  Tue, 12 Feb 2019 14:09:35 +0100
+
 cozy-stack (2:1.2.0-1) testing; urgency=medium
 
   * Remove onboarding
