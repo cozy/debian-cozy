@@ -11,13 +11,7 @@ configure)
 	db_get cozy-stack/port && PORT="${RET}"
 	db_get cozy-stack/admin/address && ADMIN_ADDRESS="${RET}"
 	db_get cozy-stack/admin/port && ADMIN_PORT="${RET}"
-
-	COUCH="http://${COUCH_USER}:${COUCH_PASS}@${COUCH_ADDRESS}/"
-	sed -i "s#@@COUCHDB@@#${COUCH}#" /etc/cozy/cozy.yml
-	sed -i "s#@@ADDRESS@@#${ADDRESS}#" /etc/cozy/cozy.yml
-	sed -i "s#@@PORT@@#${PORT}#" /etc/cozy/cozy.yml
-	sed -i "s#@@ADMIN_ADDRESS@@#${ADMIN_ADDRESS}#" /etc/cozy/cozy.yml
-	sed -i "s#@@ADMIN_PORT@@#${ADMIN_PORT}#" /etc/cozy/cozy.yml
+	COUCH_URL="http://${COUCH_USER}:${COUCH_PASS}@${COUCH_ADDRESS}/"
 
 	if [ -z "$2" ]; then
 		getent group cozy 2>&1 >/dev/null || \
@@ -33,7 +27,7 @@ configure)
 		db_get cozy-stack/couchdb/nodename && COUCH_NODE="${RET}"
 		db_get cozy-stack/couchdb/admin/user && COUCH_ADMIN="${RET}"
 		db_get cozy-stack/couchdb/admin/password && COUCH_ADMIN_PASS="${RET}"
-		curl -sX PUT "http://${COUCH_ADMIN}:${COUCH_ADMIN_PASS}@${COUCH_ADDRESS}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\"" >/dev/null
+		curl -sX PUT "${COUCH_URL}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\"" >/dev/null
 
 		if [ ! -f /etc/cozy/cozy-admin-passphrase ]; then
 			db_get cozy-stack/cozy/password && COZY_PASS="${RET}"
@@ -65,6 +59,22 @@ configure)
 		if dpkg --compare-versions "${2}" lt 2:1.2.0-1; then
 			/usr/share/cozy/uninstall-onboarding.sh
 		fi
+	fi
+
+	if [ ! -f /etc/cozy/cozy.yml.local ]; then
+		cat > /etc/cozy/cozy.yml.local <<-EOF
+			host: ${ADDRESS}
+			port: ${PORT}
+
+			admin:
+			  host: ${ADMIN_ADDRESS}
+			  port: ${ADMIN_PORT}
+
+			couchdb:
+			  url: ${COUCH_URL}
+		EOF
+		chown cozy-stack:cozy /etc/cozy/cozy.yml.local
+		chmod 600 /etc/cozy/cozy.yml.local
 	fi
 
 	systemctl restart cozy-stack
