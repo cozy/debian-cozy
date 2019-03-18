@@ -1,6 +1,7 @@
-cozy-stack (2:1.2.2-2) testing; urgency=medium
+cozy-stack (2:1.2.3-1) testing; urgency=medium
 
-  * Split config
+  * Split Debian config
+  * Sprint release
 
  -- aeris <aeris@cozycloud.cc>  Tue, 26 Feb 2019 10:48:18 +0000
 
