@@ -1,3 +1,9 @@
+cozy-stack (2:1.2.3-2) testing; urgency=medium
+
+  * Fix CouchDB Cozy user creation
+
+ -- aeris <aeris@cozycloud.cc>  Fri, 22 Mar 2019 12:04:39 +0100
+
 cozy-stack (2:1.2.3-1) testing; urgency=medium
 
   * Split Debian config
