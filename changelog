@@ -1,3 +1,9 @@
+cozy-stack (2:1.2.4-1) testing; urgency=medium
+
+  * Sprint release
+
+ -- aeris <aeris@cozycloud.cc>  Tue, 16 Apr 2019 14:35:17 +0200
+
 cozy-stack (2:1.2.3-2) testing; urgency=medium
 
   * Fix CouchDB Cozy user creation
