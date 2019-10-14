@@ -39,9 +39,9 @@ configure)
 			chmod 600 /etc/cozy/.cozy-admin-passphrase
 		fi
 
-		chown cozy-stack:cozy /etc/cozy/cozy.yml
-		chown cozy-stack:cozy /etc/cozy/cozy-admin-passphrase
-		chown -R cozy-stack:cozy /usr/share/cozy
+		chown cozy-stack: /etc/cozy/cozy.yml
+		chown cozy-stack: /etc/cozy/cozy-admin-passphrase
+		chown -R cozy-stack: /usr/share/cozy
 
 		install -o cozy-stack -g cozy -m u=rwX,g=rwX,o= -d /var/lib/cozy
 
@@ -76,8 +76,14 @@ configure)
 			couchdb:
 			  url: ${COUCH_URL}
 		EOF
-		chown cozy-stack:cozy /etc/cozy/cozy.yml.local
+		chown cozy-stack: /etc/cozy/cozy.yml.local
 		chmod 600 /etc/cozy/cozy.yml.local
+	fi
+
+	if [ ! -f /etc/cozy/vault.enc ] || [ ! -f /etc/cozy/vault.dec ]; then
+		cozy-stack config gen-keys /etc/cozy/vault
+		chown cozy-stack: /etc/cozy/vault.enc /etc/cozy/vault.dec
+		chmod u=rw,og= /etc/cozy/vault.enc /etc/cozy/vault.dec
 	fi
 
 	systemctl restart cozy-stack
