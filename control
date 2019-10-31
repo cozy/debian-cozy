@@ -18,7 +18,7 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
 			git, imagemagick, libprotobuf-c1
 Recommends: cozy-coclyco, cozy-nsjail, nginx,
 			debootstrap, lsb-release,
-			mail-transport-agent
+			mail-transport-agent, nodejs (>= 12)
 Description: Cozy: Simple, Versatile, Yours
  Cozy (https://cozy.io) is a platform that brings all your web services
  in the same private space.

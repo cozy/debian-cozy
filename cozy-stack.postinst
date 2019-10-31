@@ -36,7 +36,7 @@ configure)
 			db_get cozy-stack/cozy/password && COZY_PASS="${RET}"
 			COZY_ADMIN_PASSPHRASE="${COZY_PASS}" cozy-stack config passwd /etc/cozy/cozy-admin-passphrase
 			echo -n "${COZY_PASS}" > /etc/cozy/.cozy-admin-passphrase
-			chmod 600 /etc/cozy/.cozy-admin-passphrase
+			chmod u=rw,og= /etc/cozy/.cozy-admin-passphrase
 		fi
 
 		chown cozy-stack: /etc/cozy/cozy.yml
@@ -53,7 +53,7 @@ configure)
 			db_go
 			db_get cozy-stack/admin/passphrase && COZY_PASS="${RET}"
 			echo "${COZY_PASS}" > /etc/cozy/.cozy-admin-passphrase
-			chmod 600 /etc/cozy/.cozy-admin-passphrase
+			chmod u=rw,og= /etc/cozy/.cozy-admin-passphrase
 		fi
 
 		if dpkg --compare-versions "${2}" lt 2018M4S3-1; then
@@ -77,7 +77,7 @@ configure)
 			  url: ${COUCH_URL}
 		EOF
 		chown cozy-stack: /etc/cozy/cozy.yml.local
-		chmod 600 /etc/cozy/cozy.yml.local
+		chmod u=rw,og= /etc/cozy/cozy.yml.local
 	fi
 
 	if [ ! -f /etc/cozy/vault.enc ] || [ ! -f /etc/cozy/vault.dec ]; then

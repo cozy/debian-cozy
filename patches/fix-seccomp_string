@@ -1,0 +1,11 @@
+--- a/scripts/konnector-nsjail-node12-run.sh
++++ b/scripts/konnector-nsjail-node12-run.sh
+@@ -30,7 +30,7 @@
+ 
+ log_name=$(echo "${COZY_JOB_ID}" | tr A-Z a-z | sed -e 's/[^a-z0-9\-]/-/g')
+ 
+-read -r -d '' seccomp_string << EOM
++read -r -d '' seccomp_string << EOM || true
+ // This seccomp policy is inspired by the following resources:
+ //
+ //   https://docs.docker.com/engine/security/seccomp/#significant-syscalls-blocked-by-the-default-profile
