@@ -1,3 +1,9 @@
+cozy-stack (2:1.4.12-1) testing; urgency=medium
+
+  * 1.4.12-1 release
+
+ -- aeris <aeris@cozycloud.cc>  Tue, 19 May 2020 09:42:58 +0200
+
 cozy-stack (2:1.4.11-1) testing; urgency=medium
 
   * 1.4.11-1 release
