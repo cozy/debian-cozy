@@ -15,7 +15,7 @@ Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends},
 			adduser, members, curl, sed,
 			cozy-couchdb (>=2.0),
-			git, imagemagick, libprotobuf-c1
+			git, imagemagick, libprotobuf-c1, fonts-lato
 Recommends: cozy-coclyco, cozy-nsjail, nginx,
 			debootstrap, lsb-release,
 			mail-transport-agent, nodejs (>= 12)
