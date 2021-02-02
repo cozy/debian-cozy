@@ -17,9 +17,9 @@ configure)
 	COUCH_URL="http://${COUCH_USER}:${COUCH_PASS}@${COUCH_ADDRESS}/"
 
 	if [ -z "$2" ]; then
-		getent group cozy 2>&1 >/dev/null || \
+		getent group cozy >/dev/null 2>&1 || \
 			addgroup --quiet --system cozy
-		getent passwd cozy-stack 2>&1 >/dev/null || \
+		getent passwd cozy-stack >/dev/null 2>&1 || \
 			adduser --quiet --system \
 			--home /var/lib/cozy --no-create-home \
 			--shell /usr/sbin/nologin --ingroup cozy cozy-stack
