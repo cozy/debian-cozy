@@ -4,8 +4,6 @@ set -e
 
 case $1 in
 configure)
-	db_get cozy-stack/couchdb/admin/user && COUCH_ADMIN_USER="${RET}"
-	db_get cozy-stack/couchdb/admin/password && COUCH_ADMIN_PASS="${RET}"
 	db_get cozy-stack/couchdb/address && COUCH_ADDRESS="${RET}"
 	db_get cozy-stack/couchdb/cozy/user && COUCH_USER="${RET}"
 	db_get cozy-stack/couchdb/cozy/password && COUCH_PASS="${RET}"
@@ -13,7 +11,6 @@ configure)
 	db_get cozy-stack/port && PORT="${RET}"
 	db_get cozy-stack/admin/address && ADMIN_ADDRESS="${RET}"
 	db_get cozy-stack/admin/port && ADMIN_PORT="${RET}"
-	COUCH_ADMIN_URL="http://${COUCH_ADMIN_USER}:${COUCH_ADMIN_PASS}@${COUCH_ADDRESS}/"
 	COUCH_URL="http://${COUCH_USER}:${COUCH_PASS}@${COUCH_ADDRESS}/"
 
 	if [ -z "$2" ]; then
@@ -28,9 +25,17 @@ configure)
 			install -o root -g cozy -m u=rwX,g=rwX,o= -d /var/log/cozy
 
 		db_get cozy-stack/couchdb/nodename && COUCH_NODE="${RET}"
-		db_get cozy-stack/couchdb/admin/user && COUCH_ADMIN="${RET}"
+		db_get cozy-stack/couchdb/admin/user && COUCH_ADMIN_USER="${RET}"
 		db_get cozy-stack/couchdb/admin/password && COUCH_ADMIN_PASS="${RET}"
-		curl -fsX PUT "${COUCH_ADMIN_URL}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\"" >/dev/null
+		curl -fsX PUT -u "${COUCH_ADMIN_USER/:/%3A}:${COUCH_ADMIN_PASS}" "${COUCH_ADDRESS}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\"" >/dev/null || \
+		(
+			echo "=====================" >&2
+			echo "Unable to create cozy user in couchdb" >&2
+			echo "Check that you provided the correct couchdb admin user, password and address" >&2
+			echo "You can try again by purging and reinstalling the cozy-stack package" >&2
+			echo "apt-get purge cozy-stack; apt-get install cozy-stack" >&2
+			echo "=====================" >&2
+		)
 
 		if [ ! -f /etc/cozy/cozy-admin-passphrase ]; then
 			db_get cozy-stack/cozy/password && COZY_PASS="${RET}"
