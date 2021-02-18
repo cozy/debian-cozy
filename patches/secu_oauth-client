@@ -1,0 +1,91 @@
+diff --git a/web/auth/auth_test.go b/web/auth/auth_test.go
+index d2b08656..e88ff55e 100644
+--- a/web/auth/auth_test.go
++++ b/web/auth/auth_test.go
+@@ -503,7 +503,7 @@ func TestDeleteClientNoToken(t *testing.T) {
+ 	req.Host = domain
+ 	res, err := client.Do(req)
+ 	assert.NoError(t, err)
+-	assert.Equal(t, "400 Bad Request", res.Status)
++	assert.Equal(t, "401 Unauthorized", res.Status)
+ }
+ 
+ func TestDeleteClientSuccess(t *testing.T) {
+@@ -520,10 +520,23 @@ func TestDeleteClientSuccess(t *testing.T) {
+ 	assert.Equal(t, "204 No Content", res2.Status)
+ }
+ 
++func TestReadClientNoToken(t *testing.T) {
++	req, _ := http.NewRequest("GET", ts.URL+"/auth/register/"+clientID, nil)
++	req.Host = domain
++	req.Header.Add("Accept", "application/json")
++	res, err := client.Do(req)
++	assert.NoError(t, err)
++	assert.Equal(t, "401 Unauthorized", res.Status)
++	buf, _ := ioutil.ReadAll(res.Body)
++	assert.NotContains(t, string(buf), clientSecret)
++}
++
+ func TestReadClientInvalidToken(t *testing.T) {
+ 	res, err := getJSON("/auth/register/"+clientID, altRegistrationToken)
+ 	assert.NoError(t, err)
+ 	assert.Equal(t, "401 Unauthorized", res.Status)
++	buf, _ := ioutil.ReadAll(res.Body)
++	assert.NotContains(t, string(buf), clientSecret)
+ }
+ 
+ func TestReadClientInvalidClientID(t *testing.T) {
+diff --git a/web/auth/register.go b/web/auth/register.go
+index d0e76c32..d07493f6 100644
+--- a/web/auth/register.go
++++ b/web/auth/register.go
+@@ -2,6 +2,7 @@ package auth
+ 
+ import (
+ 	"encoding/json"
++	"errors"
+ 	"net/http"
+ 	"strings"
+ 
+@@ -77,7 +78,9 @@ func deleteClient(c echo.Context) error {
+ 		})
+ 	}
+ 	if err := checkClientToken(c, client); err != nil {
+-		return err
++		return c.JSON(http.StatusUnauthorized, echo.Map{
++			"error": err.Error(),
++		})
+ 	}
+ 	if err := client.Delete(instance); err != nil {
+ 		return c.JSON(err.Code, err)
+@@ -95,7 +98,9 @@ func checkRegistrationToken(next echo.HandlerFunc) echo.HandlerFunc {
+ 			})
+ 		}
+ 		if err := checkClientToken(c, client); err != nil {
+-			return err
++			return c.JSON(http.StatusUnauthorized, echo.Map{
++				"error": err.Error(),
++			})
+ 		}
+ 		c.Set("client", client)
+ 		return next(c)
+@@ -105,17 +110,13 @@ func checkRegistrationToken(next echo.HandlerFunc) echo.HandlerFunc {
+ func checkClientToken(c echo.Context, client *oauth.Client) error {
+ 	header := c.Request().Header.Get("Authorization")
+ 	if !strings.HasPrefix(header, "Bearer ") {
+-		return c.JSON(http.StatusBadRequest, echo.Map{
+-			"error": "invalid_token",
+-		})
++		return errors.New("invalid_token")
+ 	}
+ 	token := header[len("Bearer "):]
+ 	instance := middlewares.GetInstance(c)
+ 	_, ok := client.ValidToken(instance, consts.RegistrationTokenAudience, token)
+ 	if !ok {
+-		return c.JSON(http.StatusUnauthorized, echo.Map{
+-			"error": "invalid_token",
+-		})
++		return errors.New("invalid_token")
+ 	}
+ 	return nil
+ }
