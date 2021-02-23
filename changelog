@@ -1,3 +1,9 @@
+cozy-stack (2:1.4.26-1) testing; urgency=medium
+
+  * 1.4.26-1 release
+
+ -- aeris <aeris@cozycloud.cc>  Tue, 23 Feb 2021 18:08:06 +0100
+
 cozy-stack (2:1.4.25-2) testing; urgency=critical
 
   * Security fix : OAuth client secret leak (https://github.com/cozy/cozy-stack/pull/2903)
