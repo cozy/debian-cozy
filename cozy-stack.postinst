@@ -27,7 +27,8 @@ configure)
 		db_get cozy-stack/couchdb/nodename && COUCH_NODE="${RET}"
 		db_get cozy-stack/couchdb/admin/user && COUCH_ADMIN_USER="${RET}"
 		db_get cozy-stack/couchdb/admin/password && COUCH_ADMIN_PASS="${RET}"
-		curl -fsX PUT -u "${COUCH_ADMIN_USER/:/%3A}:${COUCH_ADMIN_PASS}" "${COUCH_ADDRESS}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\"" >/dev/null || \
+		ENCODED_COUCH_ADMIN_USER=`echo "${COUCH_ADMIN_USER}" | sed -e 's/:/%3A/g'`
+		curl -fsX PUT -u "${ENCODED_COUCH_ADMIN_USER}:${COUCH_ADMIN_PASS}" "${COUCH_ADDRESS}/_node/${COUCH_NODE}/_config/admins/${COUCH_USER}" -d "\"${COUCH_PASS}\"" >/dev/null || \
 		(
 			echo "=====================" >&2
 			echo "Unable to create cozy user in couchdb" >&2
