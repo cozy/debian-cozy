@@ -1,3 +1,9 @@
+cozy-stack (2:1.4.31-1) testing; urgency=medium
+
+  * 1.4.31-1 release
+
+ -- aeris <aeris@cozycloud.cc>  Mon, 26 Apr 2021 10:07:13 +0200
+
 cozy-stack (2:1.4.30-2) testing; urgency=medium
 
   * Fix bad shell substitution
