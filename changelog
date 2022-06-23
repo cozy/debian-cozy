@@ -1,3 +1,9 @@
+cozy-stack (2:1.5.6-1) testing; urgency=medium
+
+  * 1.5.6-1 release
+
+ -- Cozycloud Packaging Team <debian@cozycloud.cc>  Thu, 23 Jun 2022 11:21:56 +0200
+
 cozy-stack (2:1.5.5-1) testing; urgency=medium
 
   * 1.5.5-1 release
